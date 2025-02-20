@@ -27,6 +27,10 @@
                 alert("Please select the answer.");
                 return;
             }
+            if(inputMoney < 0)
+            {
+                alert(':(')
+            }
             if(currentMoney < inputMoney)
             {
                 alert("Insufficient money. You entered: "+ inputMoney +" Remaining balance:" + currentMoney);
@@ -40,8 +44,8 @@
             let win = ((totalDiceValue >= highRange && selectedRange === 'high') || 
             (totalDiceValue < highRange && totalDiceValue === midRange && selectedRange === 'mid') || 
             (totalDiceValue < midRange && totalDiceValue <= lowRange && selectedRange === 'low'));
-            currentMoney += inputMoney * (win ? 1 : -1);
-            let message = "Dice total:" + totalDiceValue + "\n Your answer range: " + selectedRange + "\nYou " + (win ? "won!" : "lose!") + "\nYour balance: " + currentMoney;
+            currentMoney += inputMoney * (win ? (selectedRange === 'mid' ? 5 : 1) : -1);
+            let message = "Dice 1: " + dice1 + "\nDice 2: " + dice2 + "\nDice 3: " + dice3 +"\n Dice total:" + totalDiceValue + "\n Your answer range: " + selectedRange + "\nYou " + (win ? "won!" : "lose!") + "\nYour balance: " + currentMoney;
             alert(message)
             setCurrentBalance(currentMoney);
             
