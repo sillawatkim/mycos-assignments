@@ -2,9 +2,9 @@
     <script>
         let currentMoney = parseInt(100);
         let selectedRange = "";
-        let lowRange = 4; //[2, 3, 4];
-        let midRange = 5; //[5, 6, 7, 8];
-        let highRange = 9;
+        let lowRange = 10; //[2, 3, 4];
+        let midRange = 11; //[5, 6, 7, 8];
+        let highRange = 12;
         window.onload = function() {
             setCurrentBalance(currentMoney);
         }
@@ -32,16 +32,14 @@
                 alert("Insufficient money. You entered: "+ inputMoney +" Remaining balance:" + currentMoney);
                 return;
             }
-            let lowRange = 2; //[2, 3, 4];
-            let midRange = 5; //[5, 6, 7, 8];
-            let highRange = 9; //[9, 10, 11, 12];
             let dice1 = rollDice();
             let dice2 = rollDice();
-            
-            let totalDiceValue = dice1 + dice2;
+            let dice3 = rollDice();
+
+            let totalDiceValue = dice1 + dice2 + dice3;
             let win = ((totalDiceValue >= highRange && selectedRange === 'high') || 
-            (totalDiceValue < highRange && totalDiceValue >= midRange && selectedRange === 'mid') || 
-            (totalDiceValue < midRange && totalDiceValue >= lowRange && selectedRange === 'low'));
+            (totalDiceValue < highRange && totalDiceValue === midRange && selectedRange === 'mid') || 
+            (totalDiceValue < midRange && totalDiceValue <= lowRange && selectedRange === 'low'));
             currentMoney += inputMoney * (win ? 1 : -1);
             let message = "Dice total:" + totalDiceValue + "\n Your answer range: " + selectedRange + "\nYou " + (win ? "won!" : "lose!") + "\nYour balance: " + currentMoney;
             alert(message)
@@ -58,14 +56,14 @@
         <h1>
             Dice Game
         </h1>
-        <p>
-            [2, 3, 4] = Low
+        <p>          
+            Low: won if sum of 3 dices lower than or equal 10
         </p>
         <p>
-            [5, 6, 7, 8] = Mid
+            Mid: won if sum of 3 dices exactly equal to 11
         </p>
         <p>
-            [9, 10, 11, 12] = High
+            High: won if sum of 3 dices more than or equal 12
         </p>
         <input type="number" max="100" id="txtInputMoney" value="10" />
         <button onclick="setAnswer('high')">High</button>
